@@ -38,7 +38,7 @@ function Navbar() {
             <DrawerHeader>
               <Box  h={20}  w={"90%"}>
                 <Link to={"/"}>
-                  <Image w={"100%"} h={"100%"} src='./cabsLogo.png' />
+                  <Image w={"100%"} h={"100%"} src='./cabLogo.png' />
                 </Link>
               </Box>
             </DrawerHeader>
@@ -57,6 +57,7 @@ function Navbar() {
       </Box>
     </Flex>
   )
+  
 }
 
 export default Navbar

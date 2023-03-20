@@ -18,8 +18,10 @@ function CardBox() {
             price: 10Rs/km
            </Text>
         </Box>
-        <Box >
-           <Button  bgColor={"#CD5D67"} color={"white"}>Book Now</Button>
+        <Box  display={"flex"} alignItems={"center"} justifyContent={"space-evenly"}>
+        {/* <Button pl={7} pr={7} variant={"solid"} colorScheme={"red"}>Cancel</Button> */}
+
+           <Button   variant={"solid"} colorScheme={"facebook"}>Book Now</Button>
         </Box>
     </Box>
   )
