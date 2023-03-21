@@ -8,7 +8,7 @@ function SinglePage() {
     let { state } = useLocation()
     let navigate = useNavigate()
     let handleAdressPage = () => {
-        navigate("/address")
+        navigate("/address",{state})
     }
     return (
         <Box w={"100%"} p={2}>
