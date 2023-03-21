@@ -18,7 +18,7 @@ function SinglePage() {
                         <Text>Seats: {state.seats}</Text>
                         <Text>Price: {state.price}</Text>
                      
-                    {/* <ShowDescription /> */}
+                    <ShowDescription />
                     </Box>
                     <Box>
                        <Button variant={"solid"} colorScheme={"facebook"}>Book Now</Button>
