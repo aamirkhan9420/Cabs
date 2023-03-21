@@ -23,6 +23,7 @@ function SinglePage() {
                 <Box>
                     <Box display={"flex"} flexDir={"column"} alignItems={"flex-start"}
                         p={{ base: 2, sm: 3, md: 5, lg: 5, xl: 5 }}
+                        gap={2}
                     >
                         <Text display={"flex"}>
                             {state.title}

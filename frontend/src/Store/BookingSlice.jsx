@@ -1,13 +1,14 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios"
-
-
-export const getProduct = createAsyncThunk("product/getproduct", (args, {
+import axios from "axios";
+export const makeBooking = createAsyncThunk("booking/makeBooking", (args, {
     rejectWithValue
 }) => {
     try {
-        return axios.get("http://localhost:8080/cabs").then((res) => {
+        console.log(args);
+        return axios.post("http://localhost:8080/booking/",args).then((res) => {
             return res.data
+        }).catch((error)=>{
+            console.log(error);
         })
 
     } catch (error) {
@@ -15,9 +16,8 @@ export const getProduct = createAsyncThunk("product/getproduct", (args, {
     }
 })
 
-
-let ProductSlice = createSlice({
-    name: "product",
+let BookingSlice = createSlice({
+    name: "booking",
     initialState: {
         data: [],
         isLoading: false,
@@ -27,25 +27,21 @@ let ProductSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getProduct.pending, (state, { payload }) => {
+        builder.addCase(makeBooking.pending, (state, { payload }) => {
             state.isLoading = true
-
         })
-        builder.addCase(getProduct.fulfilled, (state, { payload }) => {
+        builder.addCase(makeBooking.fulfilled, (state, { payload }) => {
             state.isLoading = false
             state.isErr = false
             state.isSuccess = true
-            state.data.push(...payload)
+            state.data.push(payload)
+            state.message="Successfully Booked "
         })
-        builder.addCase(getProduct.rejected, (state, { payload }) => {
+        builder.addCase(makeBooking.rejected, (state, { payload }) => {
             state.isLoading = false
             state.isErr = true
             state.isSuccess = false
-
         })
     }
-
-
-
 })
-export default ProductSlice.reducer
+export default BookingSlice.reducer

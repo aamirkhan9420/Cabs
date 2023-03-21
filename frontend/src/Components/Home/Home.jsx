@@ -5,10 +5,10 @@ import GridComponent from '../Grid/GridComponent'
 
 function Home() {
   return (
-    <Box p={10}>
-      <CarouselBox />
-      <GridComponent />
-    </Box>
+   <Box  p={{base:6 ,sm:8, md:10, lg:10, xl:10}}>
+    <CarouselBox />
+    <GridComponent />
+   </Box>
   )
 }
 
