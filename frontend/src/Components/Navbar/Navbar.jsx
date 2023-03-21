@@ -12,8 +12,8 @@ function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     // {base:"",sm:"",md:"",lg:"",xl:""}
-    <Flex  position="sticky" top={0} zIndex={700} boxShadow={"md"} h={"80px"} alignItems={"center"} justifyContent={"space-between"} p={2} bgColor={"#CD5D67"} color={"white"}>
-     <Logo />
+    <Flex position="sticky" top={0} zIndex={700} boxShadow={"md"} h={"80px"} alignItems={"center"} justifyContent={"space-between"} p={2} bgColor={"#CD5D67"} color={"white"}>
+      <Logo />
       <Box display={{ base: "none", sm: "none", md: "none", lg: "flex", xl: "flex" }} alignItems={"center"} justifyContent={"space-evenly"} w={{ base: "50%", sm: "45%", md: "45%", lg: "40%", xl: "40%" }} h={"100%"}>
         <NavLink to={"/booking"}>
           Booking
@@ -31,12 +31,12 @@ function Navbar() {
         <Drawer isOpen={isOpen}
           placement='right'
           onClose={onClose}>
-          <DrawerOverlay /> 
-        
+          <DrawerOverlay />
+
           <DrawerContent bgColor={"#CD5D67"} color={"white"}>
-             <DrawerCloseButton />
+            <DrawerCloseButton />
             <DrawerHeader>
-              <Box  h={20}  w={"90%"}>
+              <Box h={20} w={"90%"}>
                 <Link to={"/"}>
                   <Image w={"100%"} h={"100%"} src='./cabLogo.png' />
                 </Link>
@@ -57,7 +57,7 @@ function Navbar() {
       </Box>
     </Flex>
   )
-  
+
 }
 
 export default Navbar

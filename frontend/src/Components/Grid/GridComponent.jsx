@@ -6,25 +6,25 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { getProduct } from '../../Store/ProductSlice'
 function GridComponent() {
-  let dispatch=useDispatch()
-  let data=useSelector((state)=>{
- 
+  let dispatch = useDispatch()
+  let data = useSelector((state) => {
+
     return state.product.data
   })
-console.log(data)
-  useEffect(()=>{
+  console.log(data)
+  useEffect(() => {
     dispatch(getProduct())
-  },[])
+  }, [])
   return (
-     // {base:"",sm:"",md:"",lg:"",xl:""}
-    <Box w={"85%"}  m={"auto"}>
-        <Grid templateColumns={{base:"repeat(1,1fr)",sm:"repeat(1,1fr)",md:"repeat(2,1fr)",lg:"repeat(3,1fr)",xl:"repeat(3,1fr)"}} gap={3} >
-         { data.length>0&&  data.map((el,index)=>(
-          <CardBox props={el} key={index}/>
-))}
-           
+    // {base:"",sm:"",md:"",lg:"",xl:""}
+    <Box w={"85%"} m={"auto"}>
+      <Grid templateColumns={{ base: "repeat(1,1fr)", sm: "repeat(1,1fr)", md: "repeat(2,1fr)", lg: "repeat(3,1fr)", xl: "repeat(3,1fr)" }} gap={3} >
+        {data.length > 0 && data.map((el, index) => (
+          <CardBox props={el} key={index} />
+        ))}
 
-        </Grid>
+
+      </Grid>
 
     </Box>
   )
