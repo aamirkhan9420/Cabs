@@ -13,12 +13,15 @@ function GridComponent() {
   })
   console.log(data)
   useEffect(() => {
-    dispatch(getProduct())
+    if (data.length == 0) {
+      dispatch(getProduct())
+    }
+
   }, [])
   return (
     // {base:"",sm:"",md:"",lg:"",xl:""}
-    <Box w={"85%"} m={"auto"}>
-      <Grid templateColumns={{ base: "repeat(1,1fr)", sm: "repeat(1,1fr)", md: "repeat(2,1fr)", lg: "repeat(3,1fr)", xl: "repeat(3,1fr)" }} gap={3} >
+    <Box w={{ base: "100%", sm: "95%", md: "85%", lg: "85%", xl: "85%" }} m={"auto"}>
+      <Grid templateColumns={{ base: "repeat(1,1fr)", sm: "repeat(2,1fr)", md: "repeat(2,1fr)", lg: "repeat(3,1fr)", xl: "repeat(3,1fr)" }} gap={3} >
         {data.length > 0 && data.map((el, index) => (
           <CardBox props={el} key={index} />
         ))}

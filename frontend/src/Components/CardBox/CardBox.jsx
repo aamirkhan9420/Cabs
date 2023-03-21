@@ -1,33 +1,40 @@
-import { Box, Button, Image, Text } from '@chakra-ui/react'
+import { Badge, Box, Button, Image, Text } from '@chakra-ui/react'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import RatingChanged from '../StarRating/StarRating'
 
 
 function CardBox({ props }) {
-  let navigate=useNavigate()
-  let handleSinglePage=()=>{
-      navigate("/singlepage",{state:props})
+  let navigate = useNavigate()
+  let handleSinglePage = () => {
+    navigate("/singlepage", { state: props })
   }
   return (
     <Box boxShadow={"md"} borderRadius={10} pb={2}>
       <Box borderTopLeftRadius={10} borderTopRightRadius={10}  >
         <Image borderTopLeftRadius={10} borderTopRightRadius={10} m={"auto"} src={props.image} />
       </Box>
-      <Box >
-        <Text>
-          Car: {props.title}
+      <Box textAlign={"left"} pl={2} pt={2}>
+        <Text display={"flex"}>
+          {props.title}
+
+          <Badge display={"flex"} w={"fit-content"} alignItems={"center"} justifyContent={'center'} gap={2} ml={2} variant='solid' colorScheme='green'>
+        {props.rating}
+        <RatingChanged props={props.rating} />
+      </Badge>
         </Text>
         <Text>
-          Seats:  {props.seats}
+          {props.seats} Seats
         </Text>
-        <Text>
-          price: {props.price}Rs/km
+        <Text color={"black"} fontWeight={700}>
+          {props.price}Rs/km
         </Text>
       </Box>
-      <Box display={"flex"} alignItems={"center"} justifyContent={"space-evenly"}>
+      
+      <Box display={"flex"} alignItems={"left"} justifyContent={"space-evenly"}>
         {/* <Button pl={7} pr={7} variant={"solid"} colorScheme={"red"}>Cancel</Button> */}
 
-        <Button variant={"solid"} colorScheme={"facebook"}onClick={()=>handleSinglePage(props)}>Book Now</Button>
+        <Button variant={"solid"} colorScheme={"facebook"} onClick={() => handleSinglePage(props)}>Book Now</Button>
       </Box>
     </Box>
   )
