@@ -15,7 +15,6 @@ function GridComponent() {
     return state.getBooking.data
   })
 
-  console.log(booking[0]?.cab.id)
   useEffect(() => {
     if (data.length == 0) {
       dispatch(getProduct())

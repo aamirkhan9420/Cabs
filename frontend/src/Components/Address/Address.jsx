@@ -53,7 +53,8 @@ function AddressPage() {
             seats: seat,
             distance,
             charges,
-            cab:state
+            cab:state,
+            userId:"aamir123"//userId to check whether user already booked or not some other cabs
         }
         localStorage.setItem("userinformation", JSON.stringify(UserInformation))
         toast({

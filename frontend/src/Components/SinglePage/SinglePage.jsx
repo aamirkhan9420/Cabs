@@ -8,7 +8,7 @@ function SinglePage() {
     let { state } = useLocation()
     let navigate = useNavigate()
     let handleAdressPage = () => {
-        navigate("/address",{state})
+        navigate("/address", { state })
     }
     return (
         <Box w={"100%"} p={2}>
@@ -47,11 +47,12 @@ function SinglePage() {
                     </Box>
                     <Box p={{ base: 2, sm: 3, md: 5, lg: 5, xl: 5 }}>
                         <Button variant={"solid"}
-                            w='100%' colorScheme={"facebook"}
-                            fontSize={{ base: 16, sm: 20, md: 20, lg: 25, xl: 25 }}
-                            pb={{ base: 2, sm: 10, md: 10, lg: 10, xl: 10 }}
-                            pt={{ base: 2, sm: 10, md: 10, lg: 10, xl: 10 }}
-                            onClick={ handleAdressPage}
+                            colorScheme={"facebook"}
+                            fontSize={{ base: 14, sm: 16, md: 20, lg: 20, xl: 20 }}
+                            pb={{ base: 2, sm: 2, md: 3, lg: 4, xl: 8 }}
+                            pt={{ base: 2, sm: 2, md: 3, lg: 4, xl: 8 }}
+                            w={{ base: "100%", sm: "100%", md: "50%", lg: "30%", xl: "30%" }}
+                            onClick={handleAdressPage}
                         >Book Now</Button>
                     </Box>
                 </Box>

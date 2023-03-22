@@ -1,14 +1,32 @@
-import { Badge, Box, Button, Image, Text } from '@chakra-ui/react'
+import { Badge, Box, Button, Image, position, Text, useToast } from '@chakra-ui/react'
 import React from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import RatingChanged from '../StarRating/StarRating'
 
 
-function CardBox({ props,key ,isdisable}) {
+function CardBox({ props,isdisable}) {
   let navigate = useNavigate()
+  let booking = useSelector((state) => {
+    return state.getBooking.data
+  }) 
+  let toast=useToast()
+ 
 
   let handleSinglePage = () => {
-    navigate("/singlepage", { state: props})
+    let x=  booking.find(({userId})=>userId==="aamir123")
+    if(x===undefined){
+          navigate("/singlepage", { state: props})
+    }else{
+       toast({
+           title:"You have Booked already an cab please cancel first cab booking then try for another cab ",
+           position:"top",
+           duration:9000,
+           isClosable:true,
+           status:"warning"
+       })
+    }
+
   }
   return (
     <Box boxShadow={"md"} borderRadius={10} pb={2}>
