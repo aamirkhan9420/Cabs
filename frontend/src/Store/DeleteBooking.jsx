@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from 'axios'
  export const deleteBookingfunc=createAsyncThunk("booking/deleteBooking",(args,{rejectWithValue})=>{
   try {
+    console.log(args)
     return axios.delete(`http://localhost:8080/booking/${args}`).then((res)=>{
        return res.data
     }).catch((error)=>{
@@ -30,7 +31,7 @@ const DeleteBooking=createSlice({
         state.isLoading = false
         state.isErr = false
         state.isSuccess = true
-        state.data.push(...payload)
+        // state.data.push(...payload)
         state.message="Successfully deleted"
       })
       builder.addCase(deleteBookingfunc.rejected,(state,{payload})=>{

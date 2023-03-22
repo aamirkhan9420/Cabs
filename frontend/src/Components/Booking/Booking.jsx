@@ -1,27 +1,76 @@
-import { Badge, Box, Button, Highlight, Image, Text } from '@chakra-ui/react'
+import { Badge, Box, Button, Highlight, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { deleteBookingfunc } from '../../Store/DeleteBooking'
 import { getBookings } from '../../Store/GetBookingSlice'
 import { ShowDescription } from '../ShowDescription/ShowDescription'
 import RatingChanged from '../StarRating/StarRating'
 
 function Booking() {
-    let[bookingdata,setBookingData]=useState({})
-    let dispatch=useDispatch()
-    let booking = useSelector((state) => {
+  //----- for warning modal----------//
+  let [newcharge, setNewCharge] = useState("")
+  let [status, setStatus] = useState("")
+  let [newTime, setNewTime] = useState("")
+  let [oldcharge, setOldCharge] = useState("")
+  let [percent, setPercent] = useState("")
+  let[bookingdata,setBookingData]=useState({})
+  let { isOpen, onClose, onOpen } = useDisclosure() 
+  let dispatch=useDispatch()
+  let booking = useSelector((state) => {
       return state.getBooking?.data
     })
-  
-    console.log(booking[0])
-   
-  
+
+ let t1 = booking[0]?.t1
+ let handleModal = () => {
+
+   let t2 = new Date().getMinutes() - t1
+   setNewTime(t2)
+   let charges = booking[0]?.charges
+   setOldCharge(charges)
+   if (t2 < 0) {
+     setNewCharge(charges)
+     setPercent("100%")
+     setNewTime("more than 4")
+   }
+   else if (t2 == 0) {
+     setNewCharge(0)
+     setPercent("0%")
+   }
+   else if (t2 >= 1 && t2 < 2 && t2 < 3 && t2 < 4) {
+     setNewCharge(10 / 100 * charges)
+     setPercent("10%")
+   }
+   else if (t2 >= 2 && t2 < 3 && t2 < 4) {
+     setNewCharge(15 / 100 * charges)
+     setPercent("15%")
+   }
+   else if (t2 >= 3 && t2 < 4) {
+     setNewCharge(20 / 100 * charges)
+     setPercent("20%")
+   }
+   else if (t2 >= 4) {
+     setNewCharge(charges)
+     setPercent("100%")
+   }
+   onOpen()
+ }
+
+ let handledelete = () => {
+   let { id } = booking.find(({ userId }) => userId === "aamir123")
+   dispatch(deleteBookingfunc(id))
+   onClose()
+ }
+ //----- for warning modal End----------//  
+
     useEffect(() => {
-     
+    
    dispatch(getBookings())
    setBookingData(booking[0]?.cab)
+   
     }, [])
+    
     return (
         <Box w={"100%"} p={2}>
             <Box m={"auto"} h={"fit-content"}
@@ -64,14 +113,35 @@ function Booking() {
                             pb={{ base: 2, sm: 2, md: 3, lg: 4, xl: 8 }}
                             pt={{ base: 2, sm: 2, md: 3, lg: 4, xl: 8 }}
                            w={{ base: "100%", sm:"100%", md: "50%", lg: "30%", xl: "30%" }}
+                           onClick={handleModal}
                         >Cancel</Button>
                     </Box>
                 </Box>
 
             </Box>
 
+        {/* Modal  for warning*/}
 
-
+      <Modal
+        closeOnOverlayClick={false}
+        isOpen={isOpen}
+        onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader color={"red"}>Warning!!</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text>You are cancelling the booking after <span>{newTime} </span>minutes of booking time there for <span> {percent} </span>of total charge ie. <span>Rs {oldcharge}</span> will be applied ie. <span>Rs {newcharge}</span>  </Text>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme='blue' mr={3} onClick={() => handledelete()} >
+              Proceed
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+     
         </Box>
     )
 }

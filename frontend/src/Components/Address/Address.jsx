@@ -1,7 +1,7 @@
 import { Box, Button, Grid, Input, InputGroup, InputLeftAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { makeBooking } from '../../Store/BookingSlice'
 
 function AddressPage() {
@@ -16,7 +16,9 @@ function AddressPage() {
     let { isOpen, onOpen, onClose } = useDisclosure()
     let { state } = useLocation()
     let dispatch=useDispatch()
+    let navigate=useNavigate()
     let arr = ["Select number of seats", 1, 2, 3, 4, 5, 6, 7, 8]
+ 
     let handleModal = () => {
         if (name && number && currlocation && destination && seat) {
             if (Number(state.seats) >= seat) {
@@ -54,7 +56,8 @@ function AddressPage() {
             distance,
             charges,
             cab:state,
-            userId:"aamir123"//userId to check whether user already booked or not some other cabs
+            userId:"aamir123",//userId to check whether user already booked or not some other cabs
+            t1:new Date().getMinutes()
         }
         localStorage.setItem("userinformation", JSON.stringify(UserInformation))
         toast({
@@ -65,7 +68,9 @@ function AddressPage() {
         })
         dispatch(makeBooking(UserInformation))
    onClose()
+   navigate("/")
     }
+ 
     return (
         <Box w={"100%"} p={{ base: 2, sm: 10, md: 16, lg: 20, xl: 20 }}>
             <Box boxShadow={"md"} p={{ base: 4, sm: 6, md: 8, lg: 10, xl: 10 }}>
