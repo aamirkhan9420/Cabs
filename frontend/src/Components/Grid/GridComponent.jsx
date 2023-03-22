@@ -16,12 +16,11 @@ function GridComponent() {
   })
 
   useEffect(() => {
-    if (data.length == 0) {
+    if (data.length === 0) {
       dispatch(getProduct())
-     
-    }
- dispatch(getBookings())
-  }, [])
+      }
+     dispatch(getBookings())
+     },[data.length,dispatch])
   
   return (
     // {base:"",sm:"",md:"",lg:"",xl:""}

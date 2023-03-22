@@ -4,7 +4,7 @@ export const makeBooking = createAsyncThunk("booking/makeBooking", (args, {
     rejectWithValue
 }) => {
     try {
-        console.log(args);
+    
         return axios.post("http://localhost:8080/booking/",args).then((res) => {
             return res.data
         }).catch((error)=>{

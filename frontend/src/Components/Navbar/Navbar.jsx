@@ -1,23 +1,44 @@
-import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, IconButton, Image, Menu, MenuIcon, Stack, useDisclosure } from '@chakra-ui/react'
+import { Box, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Flex, Image,  Stack, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
 import { HamburgerIcon } from '@chakra-ui/icons'
 import Logo from '../Logo/Logo'
+import { useSelector } from 'react-redux'
 
 
 
 
 function Navbar() {
+  let booking = useSelector((state) => {
+    return state.getBooking?.data
+  })
+  console.log(booking.length)
   const { isOpen, onOpen, onClose } = useDisclosure()
+  let toast = useToast()
+  let handleToast = () => {
+    toast({
+      title: "No Cab Booked",
+      status: "warning",
+      position: "top-right",
+      isClosable: true,
+      
+
+    })
+  }
+
+
   return (
     // {base:"",sm:"",md:"",lg:"",xl:""}
     <Flex position="sticky" top={0} zIndex={700} boxShadow={"md"} h={"80px"} alignItems={"center"} justifyContent={"space-between"} p={2} bgColor={"#CD5D67"} color={"white"}>
       <Logo />
       <Box display={{ base: "none", sm: "none", md: "none", lg: "flex", xl: "flex" }} alignItems={"center"} justifyContent={"space-evenly"} w={{ base: "50%", sm: "45%", md: "45%", lg: "40%", xl: "40%" }} h={"100%"}>
-        <NavLink to={"/booking"}>
-          Booking
-        </NavLink>
+        {booking.length !== 0 ?
+          <NavLink to={"/booking"}>
+            Booking
+          </NavLink> :
+          <Text onClick={handleToast} cursor={"pointer"}>Booking</Text>
+        }
         <NavLink to={"/profile"}>
           Profile
         </NavLink>
@@ -44,9 +65,12 @@ function Navbar() {
             </DrawerHeader>
             <DrawerBody>
               <Stack spacing={3}>
-                <NavLink to={"/booking"}>
-                  Booking
-                </NavLink>
+                {booking.length !== 0 ?
+                  <NavLink to={"/booking"}>
+                    Booking
+                  </NavLink> :
+                  <Text onClick={handleToast} cursor={"pointer"}>Booking</Text>
+                }
                 <NavLink to={"/profile"}>
                   Profile
                 </NavLink>

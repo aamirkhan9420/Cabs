@@ -12,6 +12,20 @@ export const getBookings = createAsyncThunk("getbooking/getBookings", (args, {re
         rejectWithValue(error)
     }
 })
+export const deleteBookingf=createAsyncThunk("booking/deleteBooking",(args,{rejectWithValue})=>{
+    try {
+     
+      return axios.delete(`http://localhost:8080/booking/${args}`).then((res)=>{
+          
+         return args
+      }).catch((error)=>{
+          console.log(error)
+      })
+    } catch (error) {
+        console.log(error)
+      rejectWithValue(error)
+    }
+  })
 
 let getBookingSlice = createSlice({
     name: "booking",
@@ -24,6 +38,7 @@ let getBookingSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
+        console.log(builder)
         builder.addCase(getBookings.pending, (state, { payload }) => {
             state.isLoading = true
         })
@@ -31,10 +46,28 @@ let getBookingSlice = createSlice({
             state.isLoading = false
             state.isErr = false
             state.isSuccess = true
+            console.log(payload)
             state.data.push(...payload)
             state.message="Successful"
         })
         builder.addCase(getBookings.rejected, (state, { payload }) => {
+            state.isLoading = false
+            state.isErr = true
+            state.isSuccess = false
+        })
+        // ---------delete------//
+        builder.addCase(deleteBookingf.pending, (state, { payload }) => {
+            state.isLoading = true
+        })
+        builder.addCase(deleteBookingf.fulfilled, (state, { payload }) => {
+            console.log(payload)
+            state.isLoading = false
+            state.isErr = false
+            state.isSuccess = true
+            state.data=state.data.filter(({id})=>id!==payload)
+            state.message="Successful"
+        })
+        builder.addCase(deleteBookingf.rejected, (state, { payload }) => {
             state.isLoading = false
             state.isErr = true
             state.isSuccess = false
