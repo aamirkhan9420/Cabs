@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-export const getBookings = createAsyncThunk("getbooking/getBookings", (args, {
-    rejectWithValue
-}) => {
+export const getBookings = createAsyncThunk("getbooking/getBookings", (args, {rejectWithValue}) => {
     try {
-        
         return axios.get("http://localhost:8080/booking").then((res) => {
             return res.data
         }).catch((error)=>{

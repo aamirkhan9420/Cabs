@@ -54,6 +54,7 @@ function CardBox({ props,isdisable}) {
 
         <Button variant={"solid"} isDisabled={isdisable===props.id} colorScheme={"facebook"} onClick={() => handleSinglePage(props)}>Book Now</Button>
       </Box>
+      
     </Box>
   )
 }
