@@ -1,5 +1,5 @@
-import { Badge, Box, Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay,  Text, useDisclosure, useToast } from '@chakra-ui/react'
-import React, {  useState } from 'react'
+import { Badge, Box, Button, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from '@chakra-ui/react'
+import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -13,7 +13,7 @@ function CardBox({ props, isdisable }) {
   let [newTime, setNewTime] = useState("")
   let [oldcharge, setOldCharge] = useState("")
   let [percent, setPercent] = useState("")
-  let { isOpen, onClose, onOpen } = useDisclosure() 
+  let { isOpen, onClose, onOpen } = useDisclosure()
   let navigate = useNavigate()
   let booking = useSelector((state) => {
     return state.getBooking.data
@@ -22,9 +22,9 @@ function CardBox({ props, isdisable }) {
   //----- for warning modal End----------//
 
 
- 
+
   let toast = useToast()
-  
+
   let handleSinglePage = () => {
     let x = booking.find(({ userId }) => userId === "aamir123")
     if (x === undefined) {
@@ -54,7 +54,7 @@ function CardBox({ props, isdisable }) {
       setPercent("100%")
       setNewTime("more than 4")
     }
-    else if (t2 ===0) {
+    else if (t2 === 0) {
       setNewCharge(0)
       setPercent("0%")
     }
@@ -79,9 +79,10 @@ function CardBox({ props, isdisable }) {
 
   let handledelete = () => {
     let { id } = booking.find(({ userId }) => userId === "aamir123")
-    dispatch(deleteBookingf(id))
-    onClose()
-    
+    // dispatch(deleteBookingf(id))
+       navigate("/payment")
+       onClose()
+
   }
   //----- for warning modal End----------//  
 
@@ -90,7 +91,7 @@ function CardBox({ props, isdisable }) {
   return (
     <Box boxShadow={"md"} borderRadius={10} pb={2}>
       <Box borderTopLeftRadius={10} borderTopRightRadius={10}  >
-        <Image  borderTopLeftRadius={10} borderTopRightRadius={10} m={"auto"} src={props.image} />
+        <Image borderTopLeftRadius={10} borderTopRightRadius={10} m={"auto"} src={props.image} />
       </Box>
       <Box textAlign={"left"} pl={2} pt={2}>
         <Text display={"flex"}>

@@ -6,16 +6,13 @@ export const getProduct = createAsyncThunk("product/getproduct", (args, {
     rejectWithValue
 }) => {
     try {
-        return axios.get("http://localhost:8080/cabs").then((res) => {
+        return axios.get("http://localhost:3004/cabs").then((res) => {
             return res.data
         })
-
     } catch (error) {
         rejectWithValue(error)
     }
 })
-
-
 let ProductSlice = createSlice({
     name: "product",
     initialState: {
@@ -29,7 +26,6 @@ let ProductSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getProduct.pending, (state, { payload }) => {
             state.isLoading = true
-
         })
         builder.addCase(getProduct.fulfilled, (state, { payload }) => {
             state.isLoading = false
@@ -44,8 +40,5 @@ let ProductSlice = createSlice({
 
         })
     }
-
-
-
 })
 export default ProductSlice.reducer
