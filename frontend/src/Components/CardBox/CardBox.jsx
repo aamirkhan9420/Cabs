@@ -18,13 +18,9 @@ function CardBox({ props, isdisable }) {
   let booking = useSelector((state) => {
     return state.getBooking.data
   })
-  let dispatch = useDispatch()
   //----- for warning modal End----------//
 
-
-
   let toast = useToast()
-
   let handleSinglePage = () => {
     let x = booking.find(({ userId }) => userId === "aamir123")
     if (x === undefined) {
@@ -80,7 +76,7 @@ function CardBox({ props, isdisable }) {
   let handledelete = () => {
     let { id } = booking.find(({ userId }) => userId === "aamir123")
     // dispatch(deleteBookingf(id))
-       navigate("/payment")
+       navigate("/payment",{state:{newcharge,percent,newTime}})
        onClose()
 
   }
@@ -125,7 +121,7 @@ function CardBox({ props, isdisable }) {
           <ModalHeader color={"red"}>Warning!!</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text>You are cancelling the booking after <span>{newTime} </span>minutes of booking time there for <span> {percent} </span>of total charge ie. <span>Rs {oldcharge}</span> will be applied ie. <span>Rs {newcharge}</span>  </Text>
+            <Text>You are cancelling the booking after <span>{newTime} </span>minutes of booking time there for <span> {percent} </span>of total charges ie. <span>Rs {oldcharge}</span> will be applied ie. <span>Rs {newcharge}</span>  </Text>
           </ModalBody>
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={() => handledelete()} >

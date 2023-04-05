@@ -48,8 +48,8 @@
       "currentLocation": "varangaon",
       "destination": "bhusawal",
       "seats": "3",
-      "distance": 2,
-      "charges": 40,
+      "distance": 14,
+      "charges": 280,
       "cab": {
         "id": 2,
         "title": "maruti",
