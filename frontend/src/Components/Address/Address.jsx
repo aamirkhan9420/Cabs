@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Input, InputGroup, InputLeftAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text, useDisclosure, useToast } from '@chakra-ui/react'
+import { Box, Button, Grid, Input, InputGroup, InputLeftAddon, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Stack, Text, position, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -12,23 +12,24 @@ function AddressPage() {
     let [distance, setdistance] = useState("")
     let [charges, setCharges] = useState("")
     let [seat, setSeats] = useState("3")
+    let [carposition,setPosition]=useState("")
     const toast = useToast()
     let { isOpen, onOpen, onClose } = useDisclosure()
     let { state } = useLocation()
-    let dispatch=useDispatch()
-    let navigate=useNavigate()
+    let dispatch = useDispatch()
+    let navigate = useNavigate()
     let arr = ["Select number of seats", 1, 2, 3, 4, 5, 6, 7, 8]
- 
+
     let handleModal = () => {
         if (name && number && currlocation && destination && seat) {
             if (Number(state.seats) >= seat) {
-                let x=Math.floor((Math.random() * 20) + 1)
-                console.log(x)
+                let x = Math.floor((Math.random() * 20) + 1)
+                let y=Math.floor((Math.random()*4)+6)
+                setPosition(y)
                 setCharges(x * 20)
                 setdistance(x)
-                
                 onOpen()
-                
+
             } else {
                 toast({
                     title: `Only ${state.seats} seats available`,
@@ -54,10 +55,11 @@ function AddressPage() {
             destination,
             seats: seat,
             distance,
+            carposition,
             charges,
-            cab:state,
-            userId:"aamir123",//userId to check whether user already booked or not some other cabs
-            t1:new Date().getMinutes()
+            cab: state,
+            userId: "aamir123",//userId to check whether user already booked or not some other cabs
+            t1: new Date().getMinutes()
         }
         localStorage.setItem("userinformation", JSON.stringify(UserInformation))
         toast({
@@ -67,10 +69,10 @@ function AddressPage() {
             position: "top"
         })
         dispatch(makeBooking(UserInformation))
-   onClose()
-   navigate("/")
+        onClose()
+        navigate("/")
     }
- 
+
     return (
         <Box w={"100%"} p={{ base: 2, sm: 10, md: 16, lg: 20, xl: 20 }}>
             <Box boxShadow={"md"} p={{ base: 4, sm: 6, md: 8, lg: 10, xl: 10 }}>
@@ -113,25 +115,28 @@ function AddressPage() {
                     <ModalBody>
                         <Stack>
                             <Text>
-                              <span>Name:</span> {name}
+                                <span>Name:</span> {name}
                             </Text>
                             <Text>
-                            <span>Phone Number:</span> {number}
+                                <span>Phone Number:</span> {number}
                             </Text>
                             <Text>
-                               <span>Current Address:</span> {currlocation}
+                                <span>Current Address:</span> {currlocation}
                             </Text>
                             <Text>
-                               <span>Destination:</span> {destination}
+                                <span>Destination:</span> {destination}
                             </Text>
                             <Text>
                                 <span>Seats:</span> {seat}
                             </Text>
                             <Text>
-                              <span>Distance: </span>  {distance}
+                                <span>Distance: </span>  {distance}
                             </Text>
                             <Text>
-                               <span>Charges:</span> Rs {charges}
+                                <span>Charges:</span> Rs {charges}
+                            </Text>
+                            <Text>
+                                <span>Car Position:</span> {carposition}Kms
                             </Text>
                         </Stack>
                     </ModalBody>

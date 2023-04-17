@@ -6,7 +6,7 @@ export const getProduct = createAsyncThunk("product/getproduct", (args, {
     rejectWithValue
 }) => {
     try {
-        return axios.get("http://localhost:3004/cabs").then((res) => {
+        return axios.get("http://localhost:9000/cabs").then((res) => {
             return res.data
         })
     } catch (error) {

@@ -1,7 +1,6 @@
 import { Box, Grid } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import CardBox from '../CardBox/CardBox'
-
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { getProduct } from '../../Store/ProductSlice'

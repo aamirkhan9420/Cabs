@@ -5,7 +5,7 @@ export const makeBooking = createAsyncThunk("booking/makeBooking", (args, {
 }) => {
     try {
     
-        return axios.post("http://localhost:3004/booking/",args).then((res) => {
+        return axios.post("http://localhost:9000/booking/",args).then((res) => {
             return res.data
         }).catch((error)=>{
             console.log(error);

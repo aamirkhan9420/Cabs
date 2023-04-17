@@ -14,8 +14,6 @@ export default function MakePayment({ handleNext, paymentStatus }) {
     let handleMakePayment = () => {
         let { id } = booking.find(({ userId }) => userId === "aamir123")
         dispatch(deleteBookingf(id))
-
-
         toast({
             title: "booking cancel successfully",
             isClosable: true,
@@ -25,9 +23,7 @@ export default function MakePayment({ handleNext, paymentStatus }) {
         setTimeout(() => {
             navigate("/")
         }, 1000)
-
     }
-
 
     return (
         <>
@@ -37,11 +33,11 @@ export default function MakePayment({ handleNext, paymentStatus }) {
                     p={{ base: "10px", sm: "30px", md: "35px", lg: "40px", xl: "40px" }}
                     color='white'
                     mt='4'
-                    bg='#17BEBB'
+                    bg='#012A36'
                     rounded='md'
                     shadow='md'
                 >
-                    <Text bgColor={"black"}>You are cancelling the booking after <span>{paymentStatus.newTime} </span>
+                    <Text p={2} bgColor={"black"}>You are cancelling the booking after <span>{paymentStatus.newTime} </span>
                         minutes of booking time there for <span> {paymentStatus.percent} </span>of total charges ie. <span>
                             Rs {paymentStatus.newcharge}</span> will be applied.
                     </Text>

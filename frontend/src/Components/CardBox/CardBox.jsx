@@ -14,6 +14,7 @@ function CardBox({ props, isdisable }) {
   let [oldcharge, setOldCharge] = useState("")
   let [percent, setPercent] = useState("")
   let { isOpen, onClose, onOpen } = useDisclosure()
+  let dispatch=useDispatch()
   let navigate = useNavigate()
   let booking = useSelector((state) => {
     return state.getBooking.data
@@ -75,9 +76,21 @@ function CardBox({ props, isdisable }) {
 
   let handledelete = () => {
     let { id } = booking.find(({ userId }) => userId === "aamir123")
-    // dispatch(deleteBookingf(id))
-       navigate("/payment",{state:{newcharge,percent,newTime}})
-       onClose()
+    if (newcharge === 0) {
+
+        dispatch(deleteBookingf(id))
+        toast({
+            title: "booking cancel successfully",
+            isClosable: true,
+            position: "top",
+            status: "success"
+        })
+        onClose()
+    } else {
+
+        navigate("/payment", { state: { newcharge, percent, newTime } })
+        onClose()
+    }
 
   }
   //----- for warning modal End----------//  

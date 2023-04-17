@@ -7,9 +7,8 @@ import { useLocation } from 'react-router-dom';
 function Payment() {
   let [cardType, setCardType] = useState("mastercard")
   let [cardNum, setCardNum] = useState("")
-  const [month, setMonth] = useState(2);
-  const [year, setYear] = useState(22);
   const [holder, setHolder] = useState("");
+  let [lastName,setLastName]=useState("")
   const [cvv, setCvv] = useState('');
   let [isLoading, setLoading] = useState("")
   let [isOtp, setIsOtp] = useState(false)
@@ -18,14 +17,12 @@ function Payment() {
   let { number } = JSON.parse(localStorage.getItem("userinformation")) || ""
   let toast = useToast()
   let location = useLocation()
-  console.log(location.state)
+  
   let handleOtp = () => {
-console.log(cardNum.length )
-    if (cardType && cardNum && holder && cvv) {
-      if (cardNum.length == 19) {
-       if(cvv.length==3){
+    if (cardType && cardNum && holder && cvv && lastName) {
+      if (cardNum.length === 19) {
+       if(cvv.length===3){
        setLoading(true)
-
         setTimeout(() => {
           setIsOtp(true)
           setShowInput(true)
@@ -55,7 +52,6 @@ console.log(cardNum.length )
       }
 
     } else {
-
       toast({
         title: "All fields are mandatory",
         position: "top",
@@ -64,11 +60,8 @@ console.log(cardNum.length )
       })
     }
   }
-
   let handleNext = (onToggle) => {
-
     if (otp.length < 4) {
-
       toast({
         title: "OTP must be 4 digits",
         position: "top",
@@ -120,7 +113,7 @@ console.log(cardNum.length )
           </Box>
           <Box textAlign={"left"}>
             <Text color={"white"}>Last Name</Text>
-            <Input bgColor={"white"} borderRadius={"none"} placeholder='Eg. Rodrics' />
+            <Input bgColor={"white"} borderRadius={"none"} placeholder='Eg. Rodrics' value={lastName} onChange={(e)=>setLastName(e.target.value)}/>
           </Box>
         </Box>
 

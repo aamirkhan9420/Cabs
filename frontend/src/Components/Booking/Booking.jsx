@@ -1,11 +1,12 @@
-import { Badge, Box, Button, Highlight, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
+import { Badge, Box, Button, Highlight, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Progress, Text, useDisclosure, useToast } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
-import {  useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { deleteBookingf, getBookings } from '../../Store/GetBookingSlice'
 import { ShowDescription } from '../ShowDescription/ShowDescription'
 import RatingChanged from '../StarRating/StarRating'
+import ColorsTimeline from './RangesliderBox'
 
 function Booking() {
     //----- for warning modal----------//
@@ -14,11 +15,13 @@ function Booking() {
     let [oldcharge, setOldCharge] = useState("")
     let [percent, setPercent] = useState("")
     let { isOpen, onClose, onOpen } = useDisclosure()
+    let [carPos, setCarPosition] = useState(0)
     let dispatch = useDispatch()
     let booking = useSelector((state) => {
         return state.getBooking?.data
     })
-
+    let toast = useToast()
+  
     let t1 = booking[0]?.t1
     let handleModal = () => {
 
@@ -31,7 +34,7 @@ function Booking() {
             setPercent("100%")
             setNewTime("more than 4")
         }
-        else if (t2 ===0) {
+        else if (t2 === 0) {
             setNewCharge(0)
             setPercent("0%")
         }
@@ -56,20 +59,44 @@ function Booking() {
     let navigate = useNavigate()
     let handledelete = () => {
         let { id } = booking.find(({ userId }) => userId === "aamir123")
-        dispatch(deleteBookingf(id))
-        onClose()
-        navigate("/")
+        if (newcharge === 0) {
+
+            dispatch(deleteBookingf(id))
+            toast({
+                title: "booking cancel successfully",
+                isClosable: true,
+                position: "top",
+                status: "success"
+            })
+            setTimeout(() => {
+                navigate("/")
+            }, 1000)
+        } else {
+
+            navigate("/payment", { state: { newcharge, percent, newTime } })
+            onClose()
+        }
+
+
     }
     //----- for warning modal End----------//  
 
     useEffect(() => {
 
         dispatch(getBookings())
+        let x=booking[0]?.carposition
+       setCarPosition(x)
+ 
     
-    }, [dispatch])
+
+    }, [dispatch,booking[0]?.carposition])
 
     return (
         <Box w={"100%"} p={2}>
+            <Box >
+         
+                <ColorsTimeline prop={carPos}/>
+            </Box>
             <Box m={"auto"} h={"fit-content"}
                 w={{ base: "100%", sm: "100%", md: "95%", lg: "80%", xl: "80%" }}
                 p={{ base: 0, sm: 3, md: 5, lg: 5, xl: 5 }}

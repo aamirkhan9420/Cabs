@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 export const getBookings = createAsyncThunk("getbooking/getBookings", (args, {rejectWithValue}) => {
     try {
-        return axios.get("http://localhost:3004/booking").then((res) => {
+        return axios.get("http://localhost:9000/booking").then((res) => {
             return res.data
         }).catch((error)=>{
             console.log(error);
@@ -15,7 +15,7 @@ export const getBookings = createAsyncThunk("getbooking/getBookings", (args, {re
 export const deleteBookingf=createAsyncThunk("booking/deleteBooking",(args,{rejectWithValue})=>{
     try {
      
-      return axios.delete(`http://localhost:3004/booking/${args}`).then((res)=>{
+      return axios.delete(`http://localhost:9000/booking/${args}`).then((res)=>{
           
          return args
       }).catch((error)=>{
@@ -38,7 +38,7 @@ let getBookingSlice = createSlice({
     },
     reducers: {},
     extraReducers: (builder) => {
-        console.log(builder)
+      
         builder.addCase(getBookings.pending, (state, { payload }) => {
             state.isLoading = true
         })
@@ -46,7 +46,6 @@ let getBookingSlice = createSlice({
             state.isLoading = false
             state.isErr = false
             state.isSuccess = true
-            console.log(payload)
             state.data.push(...payload)
             state.message="Successful"
         })
